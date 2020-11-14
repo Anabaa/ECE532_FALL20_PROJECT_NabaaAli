@@ -18,7 +18,9 @@ The Features and their type/name in csv file/ (unit) are explained as follows:
 The main goal of this project is to utilize different machine learning algorithms to obtain a classifier for predicting cardiovascular disease with reasonable accuracy. The main tasks are preprocessing the dataset, training a learner using three different algorithms to classify whether a patient has a cardiovascular disease and comparing the global performance of each algorithm using cross-validation scheme to avoid overfitting. The dataset is to be divided into 7 sets, each with 10000 datapoints and shall be used interchangeably for training and evaluation purposes. The algorithms to be learned are as follows: 
 
 •	Linear regression with least squares 
+•	K-nearsst neighbors with k = 45
 •	LASSO regression
+•	Support vector machines 
 •	Neural networks with 2 layers 
 
 However, Additional algorithms may be implemented to further increase the accuracy of the learner and updates to this proposal may be posted on the GitHub project site. A public repository of the project codes, results and dataset are available at GitHub link: 
