@@ -1,0 +1,22 @@
+# LS solution with cross validation 
+k =10000
+d =  7
+err_list = []
+for s in range (d):
+    start_index = (s)*k
+    end_index = (s+1)*k 
+    
+    
+    x_unq_train = np.vstack((X[0:start_index,:],X[end_index:-1,:]))
+    y_unq_train = np.vstack((y[0:start_index,:],y[end_index:-1,:]))
+    
+    x_unq_eval = X[start_index:end_index,:]
+    y_unq_eval = y[start_index:end_index,:]
+   # train
+    w_LS= np.linalg.inv(x_unq_train.T@x_unq_train)@x_unq_train.T@y_unq_train
+
+    # Predict 
+    y_pred = np.sign(x_unq_eval@w_LS)
+    err_list.append(np.mean(y_unq_eval!=y_pred))
+avg_err=np.mean(err_list)
+print("Average error rate is %.2f%%"%(avg_err*100))
