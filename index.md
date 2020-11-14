@@ -1,7 +1,7 @@
-## Welcome to the Heart diagnositic ML project
+## Welcome to the Heart disease diagnositic ML project Page
 Cardiovascular disease includes a wide range of conditions affecting heart and arteries. In this project, a
 publicly available dataset which consists of 70000 observations of potential patients is obtained from 
-[Link](https://www.kaggle.com/sulianova/cardiovascular-disease-dataset). The dataset is based on 11 features and
+[here](https://www.kaggle.com/sulianova/cardiovascular-disease-dataset). The dataset is based on 11 features and
 a label of whether the patient observed suffers from a cardiovascular disease or not. The attributes may be
 categorized as objective, examination and subjective. Objective attributes are based on factual information,
 while the subjective ones are basically information given by the patients themselves.
@@ -14,29 +14,11 @@ The dataset is to be divided into 7 sets, each with 10000 datapoints and shall b
 training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **Linear regression with least squares**
+
 • **K-nearest negihbours**
+
 • **Neural networks with 2 layers**
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
