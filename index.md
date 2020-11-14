@@ -15,7 +15,7 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **Linear regression with least squares**
 
-• **K-nearest negihbours**
+• **K-nearest neighbours**
 
 • **Neural networks with 2 layers**
 
