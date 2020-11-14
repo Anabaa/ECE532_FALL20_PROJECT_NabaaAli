@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Welcome to the Heart diagnositic page 
 
 You can use the [editor on GitHub](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
