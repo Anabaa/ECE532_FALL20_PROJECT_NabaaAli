@@ -1,7 +1,24 @@
 # LS solution with cross validation 
+## Make sure X is full rank 
+X_rank = np.linalg.matrix_rank(X)
+print(X_rank)
+## SVD decomposition to find out the most important features 
+U,s,VT =np.linalg.svd(X,full_matrices =False)
+## plot the logaritmic distribution of the singular values 
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.plot(np.log10(s))
+ax.set_xlabel('Sing value index $i$', fontsize=16)
+ax.set_ylabel('$\log_{10}(\sigma_i)$', fontsize=16)
+ax.set_title(' Singular Values', fontsize=18)
+plt.show()
+print('The most information gained lies within the first 5 features')
+## LS using all the features with cross validation 
+##  data is split into 7 sets 
 k =10000
 d =  7
 err_list = []
+resd_list = []
 for s in range (d):
     start_index = (s)*k
     end_index = (s+1)*k 
@@ -12,11 +29,15 @@ for s in range (d):
     
     x_unq_eval = X[start_index:end_index,:]
     y_unq_eval = y[start_index:end_index,:]
-   # train
-    w_LS= np.linalg.inv(x_unq_train.T@x_unq_train)@x_unq_train.T@y_unq_train
-
-    # Predict 
-    y_pred = np.sign(x_unq_eval@w_LS)
+    
+    # train 
+    w_min = np.linalg.inv(x_unq_train.T@x_unq_train)@x_unq_train.T@y_unq_train
+    y_pred = np.sign(x_unq_eval@w_min)
     err_list.append(np.mean(y_unq_eval!=y_pred))
+    resd_list.append(np.linalg.norm(x_unq_eval@w_min-y_unq_eval)**2)
+    
 avg_err=np.mean(err_list)
+avg_resd = np.mean(resd_list)
+## print the average error rate % and the residual ||Xw-y||^(2) 
 print("Average error rate is %.2f%%"%(avg_err*100))
+print('Average residual is ,',avg_resd.round(3))
