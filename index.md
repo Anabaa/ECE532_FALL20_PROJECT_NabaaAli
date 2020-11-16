@@ -2,7 +2,7 @@
 Cardiovascular disease includes a wide range of conditions affecting heart and arteries. In this project, a
 publicly available dataset which consists of 70000 observations of potential patients is obtained from 
 [here](https://www.kaggle.com/sulianova/cardiovascular-disease-dataset). The dataset is based on 11 features and
-a label of whether the patient observed suffers from a cardiovascular disease or not. The attributes may be
+a label of whether the patient observed suffers from a cardiovascular disease (y = 1) or not (y = -1) . The attributes may be
 categorized as objective, examination and subjective. Objective attributes are based on factual information,
 while the subjective ones are basically information given by the patients themselves.
 
@@ -15,12 +15,14 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **Linear regression with least squares**
 
+• **Ridge Regression and LASSO with cross-validation**
+
 • **K-nearest neighbours**
 
 • **Neural networks with 2 layers**
 
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Results 
+<a href="https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_of_LS_R_LASSO.pdf" class="image fit" ><img src="images/marr_pic.jpg" alt=""></a>
 
 ### Jekyll Themes
 
