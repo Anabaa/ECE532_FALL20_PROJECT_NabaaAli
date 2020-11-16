@@ -23,9 +23,7 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 ## Results 
 Some raw results can be found [here](https://anabaa.github.io/ECE532_FALL20_PROJECT_NabaaAli/results)
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_of_LS_R_LASSO.pdf)
 
 ### Support or Contact
 
