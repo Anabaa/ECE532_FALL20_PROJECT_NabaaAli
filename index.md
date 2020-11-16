@@ -22,7 +22,7 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 • **Neural networks with 2 layers**
 
 ## Results 
-Some raw results can be found [here](https://anabaa.github.io/ECE532_FALL20_PROJECT_NabaaAli/results)
+Some raw results can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
 
 
 
