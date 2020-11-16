@@ -23,7 +23,7 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 ## Results 
 Some raw results can be found [here](https://anabaa.github.io/ECE532_FALL20_PROJECT_NabaaAli/results)
-![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_of_LS_R_LASSO.pdf)
+![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.jpg)
 
 ### Support or Contact
 
