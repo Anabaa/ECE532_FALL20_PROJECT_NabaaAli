@@ -24,7 +24,7 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 ## Results 
 Some raw results can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
 
-
+![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.JPG)
 
 ### Support or Contact
 
