@@ -1,3 +1,5 @@
+
+## iterative soft-thresholding for LASSO 
 def ista_solve_hot( A, d, la_array ):
     # ista_solve_hot: Iterative soft-thresholding for multiple values of
     # lambda with hot start for each case - the converged value for the previous
@@ -21,14 +23,13 @@ def ista_solve_hot( A, d, la_array ):
             if np.linalg.norm(w - w_old) < tol:
                 break
     return X
-
+## finding min & max values across each feature
     def minmax (X):
     minmax = np.zeros((11,2))
     for l in range (11): 
         minmax[l,0] = min(X[:,l])
         minmax[l,1] = max(X[:,l])
     return minmax
-## finding min & max values across each feature
 c = minmax(X)
 ## set up the scaling function so that the maximum of each feature vector in X is 1 and the minimum is 0 
 def scale(X,minmax):
