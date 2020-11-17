@@ -24,10 +24,10 @@ for s in range (d):
     end_index = (s+1)*k 
     
     
-    x_unq_train = np.vstack((X[0:start_index,:],X[end_index:-1,:]))
+    x_unq_train = np.vstack((xm[0:start_index,:],xm[end_index:-1,:]))
     y_unq_train = np.vstack((y[0:start_index,:],y[end_index:-1,:]))
     
-    x_unq_eval = X[start_index:end_index,:]
+    x_unq_eval = xm[start_index:end_index,:]
     y_unq_eval = y[start_index:end_index,:]
     
     # train 
