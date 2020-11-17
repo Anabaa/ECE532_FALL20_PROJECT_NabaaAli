@@ -1,0 +1,6 @@
+xm = X.copy()
+##Calculate the mean across each column of X 
+mean = np.mean(X,axis=0)
+# Subtract the mean from each column of X 
+for i in range(66976):
+        xm[i,:] = X[i,:] - mean

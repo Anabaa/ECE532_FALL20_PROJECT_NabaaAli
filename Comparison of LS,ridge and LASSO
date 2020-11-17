@@ -1,0 +1,34 @@
+import random
+## Plot the accuracy of LS,ridge and LASSO
+fig , ax = plt.subplots(figsize=(9,9),dpi=80)
+methods = np.array(['Least Squares','Ridge Regression','LASSO Regression'])
+errors = np.array([1-avg_err,1-err_tot_l2,1-err_tot_l1])
+all_colors = list(plt.cm.colors.cnames.keys())
+random.seed(100)
+col = random.choices(all_colors,k=5)
+ax.bar(methods,errors,color=col,width = 0.5)
+#ax.scatter(methods,errors,s=75,color='firebrick',alpha=0.7)
+for i, val in enumerate(errors):
+    plt.text(i, val, val.round(4), horizontalalignment='center', verticalalignment='bottom', fontdict={'fontweight':500, 'size':12})
+    plt.ylabel('Accuracy %', fontsize = 16)
+plt.title("Accuracy of LS,Ridge and LASSO", fontsize=18)
+plt.ylim(0, 1)
+plt.show()
+fig.savefig("Accuracy_of_LS_R_LASSO.pdf")
+
+## Plot the residual of LS,Ridge and LASSO
+fig , ax = plt.subplots(figsize=(9,9),dpi=80)
+methods = np.array(['Least Squares','Ridge Regression','LASSO Regression'])
+errors = np.array([avg_resd,res_tot_l2,res_tot_l1])
+all_colors = list(plt.cm.colors.cnames.keys())
+random.seed(100)
+col = random.choices(all_colors,k=5)
+ax.bar(methods,errors,color=col,width = 0.5)
+#ax.scatter(methods,errors,s=75,color='firebrick',alpha=0.7)
+for i, val in enumerate(errors):
+    plt.text(i, val, val.round(4), horizontalalignment='center', verticalalignment='bottom', fontdict={'fontweight':500, 'size':12})
+plt.ylabel('Residual $||Xw - y||_{2}$', fontsize = 16)
+plt.title("Residual $||Xw - y||_{2}$ of LS,Ridge and LASSO", fontsize=18)
+plt.ylim(0, 12045)
+plt.show()
+fig.savefig("residual_of_LS_R_LASSO.pdf")
