@@ -23,24 +23,9 @@ def ista_solve_hot( A, d, la_array ):
             if np.linalg.norm(w - w_old) < tol:
                 break
     return X
-## finding min & max values across each feature
-    def minmax (X):
-    minmax = np.zeros((11,2))
-    for l in range (11): 
-        minmax[l,0] = min(X[:,l])
-        minmax[l,1] = max(X[:,l])
-    return minmax
-c = minmax(X)
-## set up the scaling function so that the maximum of each feature vector in X is 1 and the minimum is 0 
-def scale(X,minmax):
-    X_norm = X.copy()
-    for l in range(11):
-        X_norm[:,l] = (X[:,l]-minmax[l,0])/(minmax[l,1]-minmax[l,0])
-    return X_norm
-X_scale = scale(X,c)
 ## Create the regularizer array for LASSO 
-lam_array=[1e-7,1e-6,1e-4,1e-2,0.1]
-lam_array=np.hstack((lam_array,np.logspace(-3,0,num=20)))
+lam_array=[1e-7,1e-6,1e-4,0.3,0.1,50]
+lam_array=np.hstack((lam_array,np.logspace(-6,-1,num=20)))
 ## Split the data into 7  sets 
 setindices=np.asarray([[0,10000],[10000,20000],[20000,30000],[30000,40000],[40000,50000],[50000,60000],[60000,69976]])
 holdoutindices=np.asarray([[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,0]])
@@ -54,26 +39,24 @@ for j in range(cases_num):
     s1_indx=index[setindices[holdoutindices[j,0],0]:setindices[holdoutindices[j,0],1]]
     s2_indx=index[setindices[holdoutindices[j,1],0]:setindices[holdoutindices[j,1],1]]
     inter_indx=np.setdiff1d(np.setdiff1d(index,s1_indx),s2_indx);
-    x_test_1 =X_scale[s1_indx,:]
+    x_test_1 =xm[s1_indx,:]
     y_test_1=y[s1_indx,:]
-    x_test_2=X_scale[s2_indx,:]
+    x_test_2=xm[s2_indx,:]
     y_test_2=y[s2_indx,:]
-    x_train=X_scale[inter_indx,:]
+    x_train=xm[inter_indx,:]
     y_train=y[inter_indx,:]
     W=ista_solve_hot(x_train,y_train,lam_array)
     err_1=np.zeros(lam_num)
     for i in range(lam_num): 
         pred_1=np.sign(x_test_1@W[:,i:i+1])
         err_1[i]=np.mean(pred_1!=y_test_1)
-        #print(pred_1)
-    #print(err_1)
     min_indx=np.argmin(err_1)
     err_l1[j]=np.mean(np.sign(x_test_2@W[:,min_indx:min_indx+1])!=y_test_2)
     res_l1[j]=np.linalg.norm(x_test_2@W[:,min_indx:min_indx+1]-y_test_2)**2
 ## find the error rate% and the residual ||Xw-y||^(2) for LASSO 
 err_tot_l1=np.mean(err_l1)
 res_tot_l1=np.mean(res_l1)
-print('The optimum lambda is:',lam_array[min_indx])
-print('The optimum weights vector is w =',W[:,min_indx:min_indx+1])
+print('The optimum lambda for the last set is:',lam_array[min_indx])
+print('The optimum weights vector for the last set  is w =',W[:,min_indx:min_indx+1])
 print("err_tot_l1 =",err_tot_l1)
 print("res_tot_l1 =",res_tot_l1)
