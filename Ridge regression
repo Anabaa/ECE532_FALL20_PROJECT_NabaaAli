@@ -1,7 +1,7 @@
 
 # Set up the regularizer array 
 lam_array=[1e-7,1e-6,1e-4,1e-2,0.1,2]
-lam_array=np.hstack((lam_array,np.logspace(0,2,num=20)))
+lam_array=np.hstack((lam_array,np.logspace(0,1,num=20)))
 ## Split the samples into 7 sets 
 setindices=np.asarray([[0,10000],[10000,20000],[20000,30000],[30000,40000],[40000,50000],[50000,60000],[60000,69976]])
 holdoutindices=np.asarray([[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,0]])
@@ -15,11 +15,11 @@ for j in range(cases_num):
     s1_indx=index[setindices[holdoutindices[j,0],0]:setindices[holdoutindices[j,0],1]]
     s2_indx=index[setindices[holdoutindices[j,1],0]:setindices[holdoutindices[j,1],1]]
     inter_indx=np.setdiff1d(np.setdiff1d(index,s1_indx),s2_indx);
-    x_test_1 =X[s1_indx,:]
+    x_test_1 =xm[s1_indx,:]
     y_test_1=y[s1_indx,:]
-    x_test_2=X[s2_indx,:]
+    x_test_2=xm[s2_indx,:]
     y_test_2=y[s2_indx,:]
-    x_train=X[inter_indx,:]
+    x_train=xm[inter_indx,:]
     y_train=y[inter_indx,:]
     err_1=np.zeros(lam_num)
     W = np.zeros((11,lam_num))
@@ -34,7 +34,7 @@ for j in range(cases_num):
 ## find the average error rate % and the average residual ||Xw-y||^(2)
 err_tot_l2=np.mean(err_l2)
 res_tot_l2=np.mean(res_l2)
-print('The optimum lambda is:',lam_array[min_indx])
-print('The optimum weights vector is w =',W[:,min_indx:min_indx+1])
+print('The optimum lambda for the last set is:',lam_array[min_indx])
+print('The optimum weights vector for the last set is w =',W[:,min_indx:min_indx+1])
 print("err_tot_ridge =",err_tot_l2)
 print("res_tot_ridge =",res_tot_l2)
