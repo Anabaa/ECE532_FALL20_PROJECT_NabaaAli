@@ -8,7 +8,7 @@ The data is loaded and preprocessed apropri and the  features matrix X is decomp
 ![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/singular_log.JPG)
 
 
-It is noticed that the most information is gained from the first five features. 
+It is noticed that the most information is gained from the first five singular values. 
 Three classifiers were trained in order to classify the cardiovascular disease.
 
 ### The residuals of the three Classifiers (LS,Ridge,LASSO)
@@ -16,4 +16,8 @@ Three classifiers were trained in order to classify the cardiovascular disease.
 ### The Accuracy % of the three Classifiers (LS,Ridge,LASSO)
 ![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_LS_R_LASSO.JPG)
 
-The most accurate classifier is the one trained using the Least Squares solutions with the least residual. However, the LASSO offers a sparse solution with minimal accuracy setbacks.
+Ridge classifier and the LS classifier are almost equal in terms of accuracy with the LS having a slightly smaller squared residual. The LASSO algorithm offers a sparse solution (sparsity at optimum penalty ranges between 1 and 4) with a slighlty compromised accuracy.
+
+
+
+Last Updated : 11/17/2020
