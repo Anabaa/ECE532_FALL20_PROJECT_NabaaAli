@@ -1,0 +1,46 @@
+fig, ([ax1, ax2],[ax3,ax4],[ax5,ax6]) = plt.subplots(nrows=3, ncols=2, figsize=(17, 14), sharey=True)
+
+ax1.set_title('Age distribution of samples')
+ax1.set_xlabel('Age in years')
+ax1.set_xlim(20,70)
+ax1.set_ylim(0.65,1.3)
+
+parts = ax1.violinplot(X_filter[:,0],vert=False)
+for pc in parts['bodies']:
+    pc.set_facecolor('#D43F3A')
+    pc.set_edgecolor('black')
+ax2.set_xlim(80,200)
+ax2.set_ylim(0.65,1.3)
+ax2.set_title('Height distribution of samples')   
+parts = ax2.violinplot(X_filter[:,2],vert=False)
+for pc in parts['bodies']:
+    pc.set_facecolor('#D43F3A')
+    pc.set_edgecolor('black')
+ax3.set_xlim(40,210)
+ax3.set_ylim(0.65,1.3)   
+ax3.set_title('ap_hi distribution of samples') 
+parts = ax3.violinplot(X_filter[:,4],vert=False)
+
+for pc in parts['bodies']:
+    pc.set_facecolor('red')
+    pc.set_edgecolor('black')
+ax4.set_xlim(20,140)
+ax4.set_ylim(0.65,1.3)
+parts = ax4.violinplot(X_filter[:,5],vert=False)
+ax4.set_title('ap_low distribution of samples') 
+for pc in parts['bodies']:
+    pc.set_facecolor('red')
+    pc.set_edgecolor('black')
+ax5.set_xlim(20,160)
+ax5.set_ylim(0.65,1.3)
+parts = ax5.violinplot(X_filter[:,3],vert=False)
+ax5.set_title('Weight distribution of samples') 
+for pc in parts['bodies']:
+    pc.set_facecolor('red')
+    pc.set_edgecolor('black')
+
+parts = ax6.violinplot(X_filter[:,6],vert=False)
+ax6.set_title('Cholestrol distribution of samples') 
+for pc in parts['bodies']:
+    pc.set_facecolor('red')
+    pc.set_edgecolor('black')
