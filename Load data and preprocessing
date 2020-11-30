@@ -17,7 +17,28 @@ print('The number of duplicate rows is',rows - count.size)
 
 y = X_unq_raw[:,11].reshape(rows_unq,1)
 X  = X_unq_raw[:,0:11]
+print(X_unq_raw.shape)
 print(y.shape)
 print(X.shape)
 # replace zero labels with -1 
 y[y == 0] = -1 
+X_filter = X.copy()
+y_filter = y.copy()
+# Convert Age from days into years 
+X_filter[:,0] = (X[:,0]/365).round(2)
+# repleace gender with label '2' by '-1'
+X_filter[np.where(X[:,1]==2)[0],1] = -1
+#X_filter = np.delete(X2,index_list,axis=0)
+# Remove outliers 
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,4] <40)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,4] <40)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,4] >200)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,4] >200)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,5] >130)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,5] >130)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,5] < 30)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,5] <30)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,2]<100)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,2] <100)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,2]>195)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,2] >195)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,3]>150)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,3] >150)[0],axis=0)
+X_filter,y_filter = np.delete(X_filter,np.where(X_filter[:,3]<40)[0],axis=0),np.delete(y_filter,np.where(X_filter[:,3] <40)[0],axis=0)
+
+rows_x= X_filter.shape[0]
+print(y_filter.shape)
+print(np.size(np.where((X[:,1]==1))[0]))
