@@ -34,8 +34,7 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **The Age,height,weight, api_high and api_low are displayed [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md) ** 
 
-
+## Modeling Insight
+A brief Modeling Insight can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
 ## Results 
-The results and the performance metrices are found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
-
 #![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.JPG)
