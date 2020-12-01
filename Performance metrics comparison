@@ -1,6 +1,7 @@
+## Plot the Accuracy of LS,Ridge, LASSO regression ,LS with 5 features (slected using LASSO) ,Linear SVM and KNN with k =14
 import random
 fig , ax = plt.subplots(figsize=(9,9),dpi=80)
-methods = np.array(['Least Squares','Ridge','LASSO ','LS with 5 features','Linear SVM','KNN with k =40 '])
+methods = np.array(['Least Squares','Ridge','LASSO ','LS with 5 features','Linear SVM','KNN with k =14 '])
 errors = np.array([1-avg_err,1-err_tot_l2,1-err_tot_l1,1-avg_err_select,1-err_tot_sv,1-np.mean(err_list)])
 all_colors = list(plt.cm.colors.cnames.keys())
 random.seed(100)
