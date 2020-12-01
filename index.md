@@ -32,10 +32,12 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **The mean is subtracted from the features matrix X for linear regression classification purposes**
 
-• **The Age,height,weight, api_high and api_low distributions of the postprocessed data are 
+• **The Age,height,weight, api_high and api_low distributions of the postprocessed data are**
+
 ![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/POSTPROCESS.JPG)
 
 ## Modeling Insight
+
 Some Modeling Insights can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
 
 ## The performance metrics of the classifiers tested 
