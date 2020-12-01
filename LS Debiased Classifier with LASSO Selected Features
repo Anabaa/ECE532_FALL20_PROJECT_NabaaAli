@@ -1,0 +1,33 @@
+# LASSO SELECTED FEATURES 
+# features 1,4,5,6 are used to model the classifier 
+non_zeros_ind = np.where(np.absolute(W[:,min_indx:min_indx+1])!=0)
+print(non_zeros_ind[0])
+X_select = X_m[:,non_zeros_ind[0]]
+##  data is split into 7 sets 
+k =10000
+d =  7
+err_list = []
+resd_list = []
+for s in range (d):
+    start_index = (s)*k
+    end_index = (s+1)*k 
+    
+    
+    x_select_train = np.vstack((X_select[0:start_index,:],X_select[end_index:-1,:]))
+    y_select_train = np.vstack((y_filter[0:start_index,:],y_filter[end_index:-1,:]))
+    
+    x_select_eval = X_select[start_index:end_index,:]
+    y_select_eval = y_filter[start_index:end_index,:]
+    #print(x_unq_eval)
+    # train 
+    w_select = np.linalg.inv(x_select_train.T@x_select_train)@x_select_train.T@y_select_train
+    y_pred_select = np.sign(x_select_eval@w_select)
+    err_list.append(np.mean(y_select_eval!=y_pred_select))
+    resd_list.append(np.linalg.norm(x_select_eval@w_select-y_select_eval))
+    
+avg_err_select=np.mean(err_list)
+avg_resd_select = np.mean(resd_list)
+## print the average error rate % and the residual ||Xw-y||^(2) 
+print("Average error rate is %.2f%%"%(avg_err_select*100))
+print('Average residual is ,',avg_resd_select.round(3))
+print(w_select)

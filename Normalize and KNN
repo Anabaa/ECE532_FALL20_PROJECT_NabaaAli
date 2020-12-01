@@ -1,0 +1,86 @@
+def minmax (X):
+    ## This function returns the min & max of each column in X
+    minmax = np.zeros((11,2))
+    for l in range (11): 
+        minmax[l,0] = min(X[:,l])
+        minmax[l,1] = max(X[:,l])
+    return minmax
+c = minmax(X_filter)
+def scale(X,minmax):
+    ##This function returns the scaled X
+    X_norm = X.copy()
+    for l in range(11):
+        X_norm[:,l] = (X[:,l]-minmax[l,0])/(minmax[l,1]-minmax[l,0])
+    return X_norm
+X_scale = scale(X_filter,c)
+def kdistance(test,y,train,k):
+    ## This function find the nearest K neighbors 
+    rows_train = train.shape[0];
+    dist = np.zeros(rows_train)
+    for n in range(rows_train):
+        dist[n]=np.linalg.norm(test-train[n,:])
+    dist_indx_sorted= np.argsort(dist,kind = 'stable')
+    dist_indx_k =dist_indx_sorted[:k]
+    #print(dist_indx_k.shape)
+    #k_neighbors_dist = dist[dist_indx_sorted]
+    #(dist[dist_indx_k])**(-1),
+    y_n = y[dist_indx_k]
+    (values,counts) = np.unique(y_n,return_counts = True)
+    return values[np.argmax(counts)]
+
+## Find the optimum k for a randomly selected 200 data points 
+K_range = 15
+err_list_k_select = []
+test_num = 200
+k_list=[]
+for k in range (K_range ):
+    index=np.asarray(range(rows_x))
+    s1_indx=index[33600:33800]
+    #print(s1_indx)
+    train_indx=(np.setdiff1d(index,s1_indx));
+    x_test_1 = X_scale[s1_indx,:]
+    y_test_1 = y_filter[s1_indx,:]
+    x_train = X_scale[train_indx,:]
+    y_train= y_filter[train_indx,:]
+    y_prediction = np.zeros(test_num).reshape(test_num,1)
+    for m in range(200):
+        #votes_k,y_neighbors = kdistance(x_test_1,y_train,x_train,k)
+        #y_prediction[m] = np.sign(votes_k@y_neighbors)
+        y_prediction[m,:] = kdistance(x_test_1[m,:],y_train,x_train,k+1)
+    #print(y_prediction)
+    error_ = np.mean(y_prediction!= y_test_1)
+    err_list_k_select.append(error_)
+    k_list.append(k+1)
+    print('The error rate for k =',k+1,'is',error_)
+    
+## plot K versus error rate % 
+fig , ax = plt.subplots(figsize=(9,9),dpi=80)
+plt.plot(k_list,err_list_k_select,color = 'red')
+plt.xlabel('K')
+plt.ylabel('Error')
+plt.title('Error rate versus K')
+fig.savefig("error_vs_k.pdf")
+
+
+## KNN algorithm and the performance metrics over random 1800 datapoints using K =14 
+d = 9
+k= 14
+err_list = []
+test_num = 200
+for s in range (d):
+    setindices=np.asarray([[0,200],[12500,12700],[20100,20300],[33600,33800],[40000,40200],[49000,49200],[55500,55700],[59900,60100],[63300,63500]])
+    holdoutindices=np.asarray([[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,0]])
+    index=np.asarray(range(rows_x))
+    s1_indx=index[setindices[holdoutindices[s,0],0]:setindices[holdoutindices[s,0],1]]
+    train_indx=(np.setdiff1d(index,s1_indx));
+    x_test_1 = X_scale[s1_indx,:]
+    y_test_1 = y_filter[s1_indx,:]
+    x_train = X_scale[train_indx,:]
+    y_train= y_filter[train_indx,:]
+    y_prediction = np.zeros(test_num).reshape(test_num,1)
+    for m in range(200):
+        y_prediction[m,:] = kdistance(x_test_1[m,:],y_train,x_train,k)
+    error_ = np.mean(y_prediction!= y_test_1)
+    err_list.append(error_)
+    print('The error rate for the',s+1,'th set is',error_)
+print('The average error rate using KNN is',np.mean(err_list))

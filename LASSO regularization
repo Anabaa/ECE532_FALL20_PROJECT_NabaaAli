@@ -24,14 +24,14 @@ def ista_solve_hot( A, d, la_array ):
                 break
     return X
 ## Create the regularizer array for LASSO 
-lam_array=[1e-7,1e-6,1e-4,0.3,0.1,50]
-lam_array=np.hstack((lam_array,np.logspace(-6,-1,num=20)))
+lam_array=[1e-7,1e-6,1e-4,1e-2,0.1,2]
+lam_array=np.hstack((lam_array,np.logspace(0,6,num=40)))
 ## Split the data into 7  sets 
-setindices=np.asarray([[0,10000],[10000,20000],[20000,30000],[30000,40000],[40000,50000],[50000,60000],[60000,69976]])
+setindices=np.asarray([[0,10000],[10000,20000],[20000,30000],[30000,40000],[40000,50000],[50000,60000],[60000,rows_x]])
 holdoutindices=np.asarray([[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,0]])
 cases_num=7
 lam_num=lam_array.shape[0]
-index=np.asarray(range(69976))
+index=np.asarray(range(rows_x))
 err_l1=np.zeros(cases_num)
 res_l1=np.zeros(cases_num)
 ## Iterate over the 7 sets to find the optimum values of lambda and w 
@@ -39,12 +39,12 @@ for j in range(cases_num):
     s1_indx=index[setindices[holdoutindices[j,0],0]:setindices[holdoutindices[j,0],1]]
     s2_indx=index[setindices[holdoutindices[j,1],0]:setindices[holdoutindices[j,1],1]]
     inter_indx=np.setdiff1d(np.setdiff1d(index,s1_indx),s2_indx);
-    x_test_1 =xm[s1_indx,:]
-    y_test_1=y[s1_indx,:]
-    x_test_2=xm[s2_indx,:]
-    y_test_2=y[s2_indx,:]
-    x_train=xm[inter_indx,:]
-    y_train=y[inter_indx,:]
+    x_test_1 =X_m[s1_indx,:]
+    y_test_1=y_filter[s1_indx,:]
+    x_test_2=X_m[s2_indx,:]
+    y_test_2=y_filter[s2_indx,:]
+    x_train=X_m[inter_indx,:]
+    y_train=y_filter[inter_indx,:]
     W=ista_solve_hot(x_train,y_train,lam_array)
     err_1=np.zeros(lam_num)
     for i in range(lam_num): 
@@ -52,7 +52,7 @@ for j in range(cases_num):
         err_1[i]=np.mean(pred_1!=y_test_1)
     min_indx=np.argmin(err_1)
     err_l1[j]=np.mean(np.sign(x_test_2@W[:,min_indx:min_indx+1])!=y_test_2)
-    res_l1[j]=np.linalg.norm(x_test_2@W[:,min_indx:min_indx+1]-y_test_2)**2
+    res_l1[j]=np.linalg.norm(x_test_2@W[:,min_indx:min_indx+1]-y_test_2)
 ## find the error rate% and the residual ||Xw-y||^(2) for LASSO 
 err_tot_l1=np.mean(err_l1)
 res_tot_l1=np.mean(res_l1)
