@@ -79,11 +79,8 @@ for s in range (d):
     y_train= y_filter[train_indx,:]
     y_prediction = np.zeros(test_num).reshape(test_num,1)
     for m in range(200):
-        #votes_k,y_neighbors = kdistance(x_test_1,y_train,x_train,k)
-        #y_prediction[m] = np.sign(votes_k@y_neighbors)
         y_prediction[m,:] = kdistance(x_test_1[m,:],y_train,x_train,k)
-    #print(y_prediction)
     error_ = np.mean(y_prediction!= y_test_1)
     err_list.append(error_)
-    print('The error rate for this set is',error_)
+    print('The error rate for the',s+1,'th set is',error_)
 print('The average error rate using KNN is',np.mean(err_list))
