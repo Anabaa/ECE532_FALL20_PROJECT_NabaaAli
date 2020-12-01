@@ -13,7 +13,8 @@ It is noticed that the most information is gained from the first five singular v
 ### K-nearest neighbours 
 
 The KNN algorithm was tested on a randomly selected 200 datapoints for different K values. 
-![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_LS_R_LASSO.JPG)
+![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/K_ERROR.JPG)
+
 from the figure above, K= 14 was selected for obtaining the performance of the KNN on 1800 evaluation datapoints. Larger evaluation datasets were computationally expensive as the KNN algorithm is known to be slow.
 
 ### Least squares, Ridge and LASSO regression 
@@ -28,11 +29,11 @@ The 8 features selected using LASSO regression were trained using the Least squa
 A Linear SVM classifier was trained using all the features and  SGD along with cross validation to select optimum regularization value. The average error for SVM is 28.64 % 
 
 ### The residuals of classifiers tested
-![Figure2](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.JPG)
+![Figure2](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/RESD_CLASS.JPG)
 ### The Accuracy % of classifiers tested
-![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_LS_R_LASSO.JPG)
+![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/ACCUR_CLASS.JPG)
 
-Ridge classifier and the LS classifier are almost equal in terms of accuracy with the LS having a slightly smaller squared residual. The SVM and the LASSO are comparable in terms of accuracy. 
+Ridge classifier and the LS classifier are almost equal in terms of accuracy with the LS having a slightly smaller squared residual. The SVM and the LASSO are comparable in terms of accuracy.
 
 
 
