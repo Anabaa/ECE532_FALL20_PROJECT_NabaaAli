@@ -19,13 +19,23 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **K-nearest neighbours**
 
+• **Linear SVM using stochastic Gradient descent**
+
 • **Neural networks with 2 layers**
+## Data Processing 
+
+• **The raw data is loaded into a features matrix X and a labels vector y** 
+
+• **Outliers in the data are removed and the gender feature entries are converted into '1' and '-1' ** 
+
+• **The dataset is found to be balanced** 
+
+• **The mean is subtracted from the features matrix X for linear regression classification purposes**
+
+• **The Age,height,weight, api_high and api_low are displayed [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md) ** 
+
 
 ## Results 
-Some raw results can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
+The results and the performance metrices are found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
 
-![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.JPG)
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+#![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.JPG)
