@@ -32,9 +32,11 @@ training and evaluation purposes. The algorithms to be learned are as follows:
 
 • **The mean is subtracted from the features matrix X for linear regression classification purposes**
 
-• **The Age,height,weight, api_high and api_low are displayed [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md) ** 
+• **The Age,height,weight, api_high and api_low distributions of the data are 
+#![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/POSTPROCESS.JPG)
 
 ## Modeling Insight
-A brief Modeling Insight can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
-## Results 
-#![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/resd_ls_r_lasso.JPG)
+Some Modeling Insights can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
+
+## The performance metrics of the classifiers tested 
+#![Figure2](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/ACCUR_CLASS.JPG)
