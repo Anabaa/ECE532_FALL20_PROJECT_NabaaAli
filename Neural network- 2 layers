@@ -1,0 +1,77 @@
+# NEURAL NETWORK WITH 1 Hidden layer 
+from random import randint
+def logsig(_x):
+    return 1/(1+np.exp(-_x))
+y_filter[y_filter == -1] = 0
+eval_error = []
+train_error =[]
+## Train NN
+M = 11 #number of hidden nodes
+# split dataset into 7 sets 
+k = 10000
+d = 7 
+alpha = 1e-1  #step size
+L =  60  #number of epochs
+fig, ([ax1, ax2]) = plt.subplots(nrows=2, ncols=1, figsize=(17, 14), sharey=True)
+x = np.arange(1,L+1)
+for s in range(d): 
+    start_index = (s)*k
+    end_index = (s+1)*k 
+    V = np.random.randn(M+1, 1); 
+    W = np.random.randn(12, M);
+    colors = np.random.rand(d,3)
+    x_unq_train = np.vstack((X_scale[0:start_index,:],X_scale[end_index:-1,:]))
+    y_unq_train = np.vstack((y_filter[0:start_index,:],y_filter[end_index:-1,:]))
+    rows_train = x_unq_train.shape[0]
+    x_unq_eval = X_scale[start_index:end_index,:]
+    y_unq_eval = y_filter[start_index:end_index,:]
+    rows_eval = x_unq_eval.shape[0]
+    err_rate = []
+    err_rate_eval = []
+    for epoch in range(L):
+        ind = np.random.permutation(rows_train)
+        for i in ind:
+            # Forward-propagate
+            H = logsig(np.hstack((np.ones((1,1)), x_unq_train[[i],:]@W))) 
+            Yhat = logsig(H@V)
+             # Backpropagate
+            delta = (Yhat-y_unq_train[i,:])*Yhat*(1-Yhat)
+            Vnew = V-alpha*H.T@delta
+            gamma = delta@V[1:,:].T*H[:,1:]*(1-H[:,1:])
+            Wnew = W - alpha*x_unq_train[[i],:].T@gamma 
+            V = Vnew
+            W = Wnew
+        print(epoch)
+        # test on training set
+        H = logsig( np.hstack((np.ones((rows_train,1)), x_unq_train@W)))
+        Yhat = logsig(H@V)
+        y_pred = np.zeros((rows_train,1))
+        for i in range (rows_train):
+            if Yhat[i,:]  < 0.5:
+                y_pred[i] = 0
+            else:
+                y_pred[i] = 1
+        err_rate.append(np.mean(y_pred!= y_unq_train))
+        # Test on  evaluation set 
+        H_eval = logsig( np.hstack((np.ones((rows_eval,1)), x_unq_eval@W)))
+        Yhat_eval = logsig(H_eval@V)
+        y_prede = np.zeros((rows_eval,1))
+        for i in range (rows_eval):
+            if Yhat_eval[i,:] < 0.5 :
+                y_prede[i] = 0
+            else:
+                y_prede[i] = 1
+        err_rate_eval.append(np.mean(y_prede!= y_unq_eval))
+    eval_error.append(np.mean(y_prede!= y_unq_eval))
+    train_error.append(np.mean(y_pred!= y_unq_train))
+    ax1.plot(x,err_rate_eval,c= colors[s],label='Evaluation error for set %d' %s )
+    ax2.plot(x,err_rate,linestyle='--',c= colors[s],label='training error for set %d' %s )
+ax1.set_xlabel('Number of Epochs')
+ax1.set_ylabel('Error %')
+ax1.set_xlabel('Number of Epochs')
+ax1.set_ylabel('Error %')
+ax1.legend()
+ax2.legend()
+print('Training error % ', np.mean(train_error))
+print('Evaluation  error % ', np.mean(eval_error))
+fig.savefig("Trainingvseval-1NN.pdf")
