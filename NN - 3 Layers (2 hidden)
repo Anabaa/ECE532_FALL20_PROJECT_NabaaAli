@@ -1,0 +1,76 @@
+## Neural network with 2 hidden layers 
+# split the data into 7 sets 
+k =10000
+d =  7
+err_7sets_train_2lay_list = []
+err_7sets_eval_2lay_list = []
+# The logistic activation function 
+def logsig(z):
+        return 1/(1+np.exp(z) 
+y_filter[y_filter == -1] = 0
+alpha = 1e-1 #step size
+L = 60 #number of epochs    
+M = 11 # number of hidden nodes in hidden layer 1 
+R = 5 # number of hidden nodes in hidden layer 2 
+for s in range (d):
+    start_index = (s)*k
+    end_index = (s+1)*k 
+    x_unq_train = np.vstack((X_scale[0:start_index,:],X_scale[end_index:-1,:]))
+    y_unq_train = np.vstack((y_filter[0:start_index,:],y_filter[end_index:-1,:]))
+    rows_train = x_unq_train.shape[0]
+    x_unq_eval = X_scale[start_index:end_index,:]
+    y_unq_eval = y_filter[start_index:end_index,:]
+    rows_eval = x_unq_eval.shape[0]
+    ## initial weights
+    V = np.random.randn(R+1, 1); 
+    m = np.random.randn(M+1,R+1)
+    W = np.random.randn(12, M);
+    for epoch in range(L):
+        ind = np.random.permutation(rows_train)
+        for i in ind:
+            H = logsig(np.hstack((np.ones((1,1)), x_unq_train[[i],:]@W))) 
+            K = logsig(H@m)
+            Yhat = logsig(K@V)
+             # Backpropagate
+            delta = (Yhat-y_filter[i,:])*Yhat*(1-Yhat)
+            Vnew = V-alpha*K.T@delta
+            gamma = delta@V.T*K*(1-K)
+            mnew = m - alpha*H.T@gamma
+            beta = gamma@m[1:,:].T*H[:,1:]*(1-H[:,1:])
+            Wnew = W - alpha*x_unq_train[[i],:].T@beta  
+            V = Vnew
+            m = mnew
+            W = Wnew
+        #print(epoch)
+    ## Test on training data 
+    H = logsig( np.hstack((np.ones((rows_train,1)), x_unq_train@W)))
+    K = logsig(H@m)
+    Yhat = logsig(K@V)
+    y_pred_train = np.zeros((rows_train,1))
+    for t in range (rows_train):
+        if Yhat[t,:] < 0.5 :
+            y_pred_train[t] = 0
+        else:
+            y_pred_train[t] = 1
+    err_rate = np.mean(y_pred_train!= y_unq_train)
+    ## Test on validation set 
+    H_eval = logsig( np.hstack((np.ones((rows_eval,1)), x_unq_eval@W)))
+    K_eval = logsig(H_eval@m)
+    Yhat_eval = logsig(K_eval @V)
+    y_prede_eval = np.zeros((rows_eval,1))
+    for j in range (rows_eval):
+        if Yhat_eval[j,:] < 0.5 :
+            y_prede_eval[j] = 0
+        else:
+            y_prede_eval[j] = 1
+    err_rate_eval = np.mean(y_prede_eval!= y_unq_eval)
+    err_7sets_train_2lay_list.append(err_rate)
+    err_7sets_eval_2lay_list.append(err_rate_eval)
+    
+avg_err_train =np.mean(err_7sets_train_2lay_list)
+
+avg_err_eval =np.mean(err_7sets_eval_2lay_list)
+  
+## print the average error rates
+print("Average train error rate is %.2f%%"%(avg_err_train*100))
+print("Average evaluation error rate is %.2f%%"%(avg_err_eval*100))
