@@ -1,3 +1,4 @@
+# This code shall be executed along with loading, preprocessing and Mean func codes 
 # LS solution with cross validation 
 ## Make sure X is full rank 
 X_rank = np.linalg.matrix_rank(X_m)

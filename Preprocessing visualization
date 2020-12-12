@@ -1,4 +1,4 @@
-fig, ([ax1, ax2],[ax3,ax4],[ax5,ax6]) = plt.subplots(nrows=3, ncols=2, figsize=(17, 14), sharey=True)
+fig, ([ax1, ax2],[ax3,ax4],[ax5,ax6],[ax7,ax8]) = plt.subplots(nrows=4, ncols=2, figsize=(17, 14), sharey=True)
 
 ax1.set_title('Age distribution of samples')
 ax1.set_xlabel('Age in years')
@@ -39,8 +39,14 @@ for pc in parts['bodies']:
     pc.set_facecolor('red')
     pc.set_edgecolor('black')
 
-parts = ax6.violinplot(X_filter[:,6],vert=False)
-ax6.set_title('Cholestrol distribution of samples') 
+parts = ax6.violinplot(y_filter,vert=False)
+ax6.set_title('Presence of CVD among samples') 
 for pc in parts['bodies']:
     pc.set_facecolor('red')
     pc.set_edgecolor('black')
+parts = ax7.violinplot(X_filter[:,1],vert=False)
+ax7.set_title('Gender distribution of samples') 
+for pc in parts['bodies']:
+    pc.set_facecolor('red')
+    pc.set_edgecolor('black')
+fig.savefig("Post_processing visualization.pdf")

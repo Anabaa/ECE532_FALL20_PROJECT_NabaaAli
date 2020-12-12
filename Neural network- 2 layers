@@ -1,77 +1,86 @@
+# This code shall be executed along with the loading data, preprocessing codes and minmax scale codes 
 # NEURAL NETWORK WITH 1 Hidden layer 
 from random import randint
-def logsig(_x):
-    return 1/(1+np.exp(-_x))
-y_filter[y_filter == -1] = 0
-eval_error = []
-train_error =[]
-## Train NN
-M = 11 #number of hidden nodes
 # split dataset into 7 sets 
-k = 10000
-d = 7 
-alpha = 1e-1  #step size
-L =  60  #number of epochs
-fig, ([ax1, ax2]) = plt.subplots(nrows=2, ncols=1, figsize=(17, 14), sharey=True)
-x = np.arange(1,L+1)
-for s in range(d): 
-    start_index = (s)*k
-    end_index = (s+1)*k 
-    V = np.random.randn(M+1, 1); 
-    W = np.random.randn(12, M);
-    colors = np.random.rand(d,3)
-    x_unq_train = np.vstack((X_scale[0:start_index,:],X_scale[end_index:-1,:]))
-    y_unq_train = np.vstack((y_filter[0:start_index,:],y_filter[end_index:-1,:]))
-    rows_train = x_unq_train.shape[0]
-    x_unq_eval = X_scale[start_index:end_index,:]
-    y_unq_eval = y_filter[start_index:end_index,:]
-    rows_eval = x_unq_eval.shape[0]
-    err_rate = []
-    err_rate_eval = []
-    for epoch in range(L):
-        ind = np.random.permutation(rows_train)
+k =10000
+d =  7
+# Define the activation function 
+def logsig(_x):
+        return 1/(1+np.exp(-_x))  
+y_filter[y_filter == -1] = 0
+#step size
+alpha = 1e-2
+L = 50 # number of epochs
+# l_2 regularizer 
+lam = 1e-4
+#number of hidden nodes in layer 1 
+M = 11 
+V = np.random.randn(M+1, 1); 
+W = np.random.randn(12, M);
+avg_train_err_each_epoch1NN = []
+avg_eval_err_each_epoch1NN = []
+for epoch in range(L):
+    err_7sets_train_1lay_list = []
+    err_7sets_eval_1lay_list = []
+    for s in range (d):
+        start_index = (s)*k
+        end_index = (s+1)*k 
+        x_unq_train = np.vstack((X_scale[0:start_index,:],X_scale[end_index:-1,:]))
+        y_unq_train = np.vstack((y_filter[0:start_index,:],y_filter[end_index:-1,:]))
+        rows_train = x_unq_train.shape[0]
+        x_unq_eval = X_scale[start_index:end_index,:]
+        y_unq_eval = y_filter[start_index:end_index,:]
+        rows_eval = x_unq_eval.shape[0]
+        # train 
+        ind = np.random.permutation(rows_train) 
         for i in ind:
             # Forward-propagate
             H = logsig(np.hstack((np.ones((1,1)), x_unq_train[[i],:]@W))) 
             Yhat = logsig(H@V)
              # Backpropagate
             delta = (Yhat-y_unq_train[i,:])*Yhat*(1-Yhat)
-            Vnew = V-alpha*H.T@delta
+            Vnew = V-alpha*H.T@delta-alpha*(2/rows_train)*lam*V
             gamma = delta@V[1:,:].T*H[:,1:]*(1-H[:,1:])
-            Wnew = W - alpha*x_unq_train[[i],:].T@gamma 
+            Wnew = W - alpha*x_unq_train[[i],:].T@gamma -alpha*(2/rows_train)*lam*W
             V = Vnew
             W = Wnew
-        print(epoch)
-        # test on training set
+        # calculate training error at this epoch 
         H = logsig( np.hstack((np.ones((rows_train,1)), x_unq_train@W)))
         Yhat = logsig(H@V)
-        y_pred = np.zeros((rows_train,1))
-        for i in range (rows_train):
-            if Yhat[i,:]  < 0.5:
-                y_pred[i] = 0
+        y_pred_train = np.zeros((rows_train,1))
+        for t in range (rows_train):
+            if Yhat[t,:] < 0.5 :
+                y_pred_train[t] = 0
             else:
-                y_pred[i] = 1
-        err_rate.append(np.mean(y_pred!= y_unq_train))
-        # Test on  evaluation set 
+                y_pred_train[t] = 1
+        err_rate = np.mean(y_pred_train!= y_unq_train)
+        # calculate  evaluation error at this epoch 
         H_eval = logsig( np.hstack((np.ones((rows_eval,1)), x_unq_eval@W)))
         Yhat_eval = logsig(H_eval@V)
-        y_prede = np.zeros((rows_eval,1))
-        for i in range (rows_eval):
-            if Yhat_eval[i,:] < 0.5 :
-                y_prede[i] = 0
+        y_pred_eval = np.zeros((rows_eval,1))
+        for j in range (rows_eval):
+            if Yhat_eval[j,:] < 0.5 :
+                y_pred_eval[j] = 0
             else:
-                y_prede[i] = 1
-        err_rate_eval.append(np.mean(y_prede!= y_unq_eval))
-    eval_error.append(np.mean(y_prede!= y_unq_eval))
-    train_error.append(np.mean(y_pred!= y_unq_train))
-    ax1.plot(x,err_rate_eval,c= colors[s],label='Evaluation error for set %d' %s )
-    ax2.plot(x,err_rate,linestyle='--',c= colors[s],label='training error for set %d' %s )
-ax1.set_xlabel('Number of Epochs')
-ax1.set_ylabel('Error %')
-ax1.set_xlabel('Number of Epochs')
-ax1.set_ylabel('Error %')
-ax1.legend()
-ax2.legend()
-print('Training error % ', np.mean(train_error))
-print('Evaluation  error % ', np.mean(eval_error))
-fig.savefig("Trainingvseval-1NN.pdf")
+                y_pred_eval[j] = 1
+        err_rate_eval = np.mean(y_pred_eval!= y_unq_eval)
+       
+        err_7sets_train_1lay_list.append(err_rate)
+        err_7sets_eval_1lay_list.append(err_rate_eval)
+    print(epoch) 
+    # calculate average errors across the 7 sets at this specific epoch 
+    avg_err_train =np.mean(err_7sets_train_1lay_list)
+    avg_err_eval =np.mean(err_7sets_eval_1lay_list)
+    avg_train_err_each_epoch1NN.append(avg_err_train)
+    avg_eval_err_each_epoch1NN.append(avg_err_eval)
+    print('Average train error after epoch',epoch,':' ,(avg_err_train*100))
+    print('Average eval error after epoch',epoch,':' ,(avg_err_eval*100))
+# plot the average training error and average evaluation error versus epochs 
+fig = plt.figure()
+x = np.arange(1,L+1)
+plt.plot(x,avg_eval_err_each_epoch1NN,c='red',label='Evaluation error')
+plt.plot(x,avg_train_err_each_epoch1NN,c='k',label='Training error')
+plt.xlabel('Number of Epochs')
+plt.ylabel('Error %')
+plt.legend()
+fig.savefig("Trainingvseval_after_each_epoch-1NN.pdf")
