@@ -38,11 +38,11 @@ as they have their patterns and tendencies when it comes to anatomy and general 
 instance, people suffering from dwarfism have a ten-fold increased risk of suffering from CVD’s. The
 criteria showed in Table 2 was used for outliers omission.
 
-![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/PREPROCESSING_V.jpg)
+![Figure1](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/PREPROCESSING_V.JPG)
 
-## Modeling Insight
+## Modeling Insight and Results 
 
-Some Modeling Insights can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
+Some Modeling Insights and results can be found [here](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/gh-pages/results.md)
 
 ## The performance metrics of the classifiers tested 
 ![Figure2](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Accuracy_final.JPG)
