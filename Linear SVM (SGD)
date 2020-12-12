@@ -1,16 +1,16 @@
+# This code shall be executed along with the loading , preprocessing and Mean func codes 
 from random import randint
+# Define SGD for SVM
 def SVM_gradient_descent( A, d, la_array ):
     # this function solves the minimization problem
     # Minimize Hinge loss+ lambda*|x|_2 (Linear SVM using stochastic gradient descent)
- 
-    max_iter = 11**5
-    tol = 10**(-9)
-    ## Step size
+    max_iter = 10**5
+    tol = 10**(-6)
     tau = 2/np.linalg.norm(A,2)**2
     m,n = A.shape
     num_lam = len(la_array)
     X = np.zeros((n, num_lam))
-    #print(m)
+
    
     w_old =np.zeros((n,1))
     for i, each_lambda in enumerate(la_array): 
@@ -22,22 +22,22 @@ def SVM_gradient_descent( A, d, la_array ):
             # stochastic Gradient descent
             w = w_old - (tau/2)*((-d[ran,:]*(np.transpose(A[ran,:])).reshape(11,1)*(1+np.sign((1-d[ran,:]*A[ran,:]@w_old))))+(2/m)*each_lambda*w_old)
             X[:, i:i+1] = w
-            if np.linalg.norm(w - w_old) < tol:
+            if np.linalg.norm(w_old-w,2) < tol:
                  break
         #print(j)
     return X
 
 ## Create the regularizer array
-lam_array=[1e-7,1e-6,1e-4,1e-2,0.1,2]
-lam_array=np.hstack((lam_array,np.logspace(0,6,num=40)))
-# Split data into 7 sets for cross validation
+lam_array=[1e-7,1e-6,1e-4,1e-2,0.1,0,2]
+lam_array=np.hstack((lam_array,np.logspace(-7,1,num=40)))
+print(lam_array)
 setindices=np.asarray([[0,10000],[10000,20000],[20000,30000],[30000,40000],[40000,50000],[50000,60000],[60000,rows_x]])
 holdoutindices=np.asarray([[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,0]])
 cases_num=7
 lam_num=lam_array.shape[0]
 index=np.asarray(range(rows_x))
 err_sv_2=np.zeros(cases_num)
-res_sv=np.zeros(cases_num)
+loss_sv=np.zeros(cases_num)
 for j in range(cases_num):
     s1_indx=index[setindices[holdoutindices[j,0],0]:setindices[holdoutindices[j,0],1]]
     s2_indx=index[setindices[holdoutindices[j,1],0]:setindices[holdoutindices[j,1],1]]
@@ -50,19 +50,16 @@ for j in range(cases_num):
     y_train=y_filter[inter_indx,:]
     W=SVM_gradient_descent(x_train,y_train,lam_array)
     err_sv=np.zeros(lam_num)
+    m = x_test_2.shape[0]
     for i in range(lam_num): 
         pred_1=np.sign(x_test_1@W[:,i:i+1])
         err_sv[i]=np.mean(pred_1!=y_test_1)
     min_indx=np.argmin(err_sv)
     print(err_sv)
     err_sv_2[j]=np.mean(np.sign(x_test_2@W[:,min_indx:min_indx+1])!=y_test_2)
-    res_sv[j]=np.linalg.norm(x_test_2@W[:,min_indx:min_indx+1]-y_test_2)
 err_tot_sv=np.mean(err_sv_2)
-res_tot_sv=np.mean(res_sv)
-## Print the average residual and the classifier performance metrics
-print('The optimum lambda for the last set is:',lam_array[min_indx])
+loss_tot_sv=np.mean(loss_sv)
+print('The optimum lambda is:',lam_array[min_indx])
 print('The optimum weights vector for the last set is w =',W[:,min_indx:min_indx+1])
 print("err_tot_svm =",err_tot_sv)
-print("res_tot_svm =",res_tot_sv)
 print('accuracy = ',1-err_tot_sv)
-
