@@ -1,8 +1,16 @@
+# This code shall be executed along with the loading , preprocessing, LASSO and Mean func codes 
 # LASSO SELECTED FEATURES 
-# features 1,4,5,6 are used to model the classifier 
-non_zeros_ind = np.where(np.absolute(W[:,min_indx:min_indx+1])!=0)
-print(non_zeros_ind[0])
-X_select = X_m[:,non_zeros_ind[0]]
+# Find non zero indices 
+ind = []
+w_lass = W[:,min_indx:min_indx+1]
+print(w_lass)
+for i in range(11): 
+    if abs(w_lass[i,:]) == 0 :
+        w_lass[i,:] = 0 
+    if w_lass[i,:] != 0 : 
+        ind.append(i) 
+X_select = X_m[:,ind]
+print(ind)
 ##  data is split into 7 sets 
 k =10000
 d =  7
