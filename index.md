@@ -4,7 +4,7 @@ Cardiovascular diseases include a wide range of conditions mostly affecting the 
 Individuals at risk of CVD often experience raised blood pressure, glucose, and LDL (cholesterol)
 levels as well as excessive alcohol consumption and obesity. Early classification of CVD may help
 in preventing premature death, save resources, and increase productivity. In this project, a publicly
-available dataset which consists of 70000 observations of examined individuals is obtained from:
+available dataset which consists of 70000 observations of examined individuals is obtained from
 [here](https://www.kaggle.com/sulianova/cardiovascular-disease-dataset). 
 
 The dataset is based on the 11 features  and a corresponding label of whether the patient
@@ -20,6 +20,7 @@ of each trained classifier. Overfitting occurs when the classifier learns a lot 
 and fails to generalize on new points. Cross-validation was used to assess how well each classifier
 generalizes beyond training data and thus minimize overfitting. Accordingly, the samples were
 divided into 7 datasets such that each set is used interchangeably for training and evaluation purposes.
+
 • **Linear regression with least squares**
 
 • **Ridge Regression and LASSO with cross-validation**
