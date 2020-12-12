@@ -43,9 +43,13 @@ neural networks was that they trained slowly, and using batch stochastic gradien
 expedite the training process. It was noticed that the accuracy of the classifiers throughout this project,
 peaked at 73.5%. This performance may be due to the nature of the dataset itself, and therefore
 further accuracy gains may be achieved, if the dataset included:
+
 • features such as race, specific genes, family medical history, intesity of pyshical activity, etc.
+
 • A gender-balanced dataset.
+
 • Numerical values implying the smoking intesity and the level of alcoholic consumption.
+
 A final note would be that all the results are easily reproducible using the codes published on the
 project’s public repository.
 
