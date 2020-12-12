@@ -1,0 +1,14 @@
+def minmax (X):
+    minmax = np.zeros((11,2))
+    for l in range (11): 
+        minmax[l,0] = min(X[:,l])
+        minmax[l,1] = max(X[:,l])
+    return minmax
+c = minmax(X_filter)
+def scale(X,minmax):
+    X_norm = X.copy()
+    for l in range(11):
+        X_norm[:,l] = (X[:,l]-minmax[l,0])/(minmax[l,1]-minmax[l,0])
+    return X_norm
+X_scale = scale(X_filter,c)
+X_scale = np.hstack((np.ones((rows_x,1)), X_scale))

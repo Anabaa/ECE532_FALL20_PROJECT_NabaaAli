@@ -1,4 +1,4 @@
-
+# This codes shall be executed along with the loading , preprocessing and Mean func codes 
 ## iterative soft-thresholding for LASSO 
 def ista_solve_hot( A, d, la_array ):
     # ista_solve_hot: Iterative soft-thresholding for multiple values of
