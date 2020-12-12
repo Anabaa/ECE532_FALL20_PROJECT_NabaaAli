@@ -1,4 +1,4 @@
-
+# This code shall be executed along with the loading, preprocessing codes and the mean func code
 # Set up the regularizer array 
 lam_array=[1e-7,1e-6,1e-4,1e-2,0.1,2]
 lam_array=np.hstack((lam_array,np.logspace(0,1,num=20)))
