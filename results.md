@@ -26,15 +26,15 @@ The networks are depicted as follows:
 
 ![Figure2](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/NN2.JPG)
 
-The performance of the first network using 11 nodes in the hidden layer and a learning rate of 0.01 can be seen below in ![Figure3](a) 
+The performance of the first network using 11 nodes in the hidden layer and a learning rate of 0.01 can be seen below:
 
 ![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/1NN_PER.JPG)
 
-The performance of the second network using 11 nodes in each hidden layer and a learning rate of 0.01 can be seen below in ![Figure3](b) 
+The performance of the second network using 11 nodes in each hidden layer and a learning rate of 0.01 can be seen below:
 
 ![Figure3](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/2NN_PER.JPG)
 
-### The residuals of classifiers tested
+### Residuals of some classifiers trained 
 ![Figure2](https://github.com/Anabaa/ECE532_FALL20_PROJECT_NabaaAli/blob/pdf/Residuals.JPG)
 
 The results  prove that neural networks achieved optimal performance metrics,
